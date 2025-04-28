@@ -54,7 +54,7 @@ print("TweenService Successful")
 
 tween:Play()
 
-wait(25)
+wait(99999)
 if not game:IsLoaded() then
   game.Loaded:Wait()
 end
