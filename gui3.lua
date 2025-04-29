@@ -10,10 +10,10 @@ TextColor = Color3.fromRGB(255,255,255),
 ElementColor = Color3.fromRGB(255, 0, 0)
 }
 ]]
-local Window = Library.CreateLib("MM2 X-HUB", "RJTheme3")
+local Window = Library.CreateLib("X-HUB", "RJTheme3")
 local Tab = Window:NewTab("Main")
-local Section = Tab:NewSection("Error: Unsafe to execute on this account.")
-Section:NewLabel("Weapon Spawner")
-Section:NewTextBox("Input Weapon Name", "Weapon Spawner", function(txt)
+local Section = Tab:NewSection("Error: Unsafe to execute on this account. Features wont work, try a different one")
+Section:NewLabel("Weapon/Pet Spawner")
+Section:NewTextBox("Input Weapon/Pet Name", "Weapon/Pet Spawner", function(txt)
 print(txt)
 end)
