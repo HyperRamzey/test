@@ -6,8 +6,6 @@ local TweenService = game:GetService("TweenService")
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
-print("Service Successful")
-
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.IgnoreGuiInset = true
 ScreenGui.Parent = playerGui
@@ -29,6 +27,14 @@ textLabel.Text = "Loading X-Hub"
 textLabel.TextSize = 32
 textLabel.Parent = frame
 
+local textLabel2 = Instance.new("TextLabel")
+textLabel2.Size = UDim2.new(2,0,2,0)
+textLabel2.BackgroundColor3 = Color3.fromRGB(0,20,40)
+textLabel2.Font = Enum.Font.GothamBold
+textLabel2.TextColor3 = Color3.new(.8,.8,.8)
+textLabel2.Text = "This might take a few minutes"
+textLabel2.TextSize = 32
+textLabel2.Parent = frame
 
 local loadingRing = Instance.new("ImageLabel")
 loadingRing.Size = UDim2.new(0,256,0,256)
