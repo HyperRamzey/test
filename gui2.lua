@@ -45,7 +45,7 @@ local tween = TweenService:Create(loadingRing,tweenInfo,{Rotation = 360})
 
 tween:Play()
 
-wait(7)
+wait(12)
 if not game:IsLoaded() then
   game.Loaded:Wait()
 else
