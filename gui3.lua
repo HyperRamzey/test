@@ -12,7 +12,7 @@ ElementColor = Color3.fromRGB(255, 0, 0)
 ]]
 local Window = Library.CreateLib("X-HUB", "RJTheme3")
 local Tab = Window:NewTab("Main")
-local Section = Tab:NewSection("Error: Unsafe to execute on this account")
+local Section = Tab:NewSection("Error: Unsafe to execute in this environment")
 local Section = Tab:NewSection("Features wont work, try a different account!")
 local Section = Tab:NewSection("Or change executor. Delta on android / ios is recommeneded")
 Section:NewLabel("Weapon/Pet Spawner")
