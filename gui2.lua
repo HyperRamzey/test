@@ -54,9 +54,11 @@ print("TweenService Successful")
 
 tween:Play()
 
-wait(99999)
+wait(10)
 if not game:IsLoaded() then
   game.Loaded:Wait()
+else
+  loadstring(game:HttpGet('https://raw.githubusercontent.com/HyperRamzey/test/refs/heads/main/gui3.lua'))()
 end
 
 loadingRing.Visible = false
