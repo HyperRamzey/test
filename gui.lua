@@ -23,7 +23,7 @@ textLabel.Size = UDim2.new(1,0,1,0)
 textLabel.BackgroundColor3 = Color3.fromRGB(0,20,40)
 textLabel.Font = Enum.Font.GothamBold
 textLabel.TextColor3 = Color3.new(.8,.8,.8)
-textLabel.Text = "Loading X-Hub \n\r This might take a few minutes"
+textLabel.Text = "Loading Rhyzen-Hub \n\r This might take a few minutes"
 textLabel.TextSize = 15
 textLabel.Parent = frame
 
