@@ -28,7 +28,7 @@ textLabel.TextColor3 = Color3.new(0,0,0)
 -- Enable and configure outline
 textLabel.TextStrokeTransparency = 0
 textLabel.TextStrokeColor3 = Color3.fromHSV(0,1,1)
-textLabel.Text = "Loading X-Hub\nThis might take a few minutes"
+textLabel.Text = "Loading X-Hub \n\r This might take a few minutes"
 textLabel.TextSize = 15
 textLabel.Parent = frame
 
