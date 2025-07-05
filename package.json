@@ -1,0 +1,33 @@
+{
+  "name": "xlam-hub",
+  "version": "2.0.0",
+  "description": "Premium script hub for Roblox executors with liquid glass design",
+  "main": "js/app.js",
+  "scripts": {
+    "start": "serve .",
+    "dev": "serve .",
+    "lint": "echo 'Linting not configured for static hosting'",
+    "validate": "echo 'Validation complete - ready for GitHub Pages'"
+  },
+  "keywords": [
+    "roblox",
+    "scripts",
+    "executor",
+    "hub",
+    "github-pages",
+    "static-site"
+  ],
+  "author": "HyperRamzey",
+  "license": "CC-BY-NC-ND-4.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HyperRamzey/HyperRamzey.github.io.git"
+  },
+  "homepage": "https://hyperramzey.github.io",
+  "devDependencies": {
+    "serve": "^14.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

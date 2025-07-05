@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1c3c">
+  <meta name="description" content="Premium script hub for Roblox executors with liquid glass design">
+  <meta name="author" content="HyperRamzey">
+  <meta name="robots" content="index, follow">
+  <title>xlam HUB</title>
+  
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="images/icon-192x192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+  <script src="js/app.js" defer></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <button type="button" id="menu-btn" aria-label="Open menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </nav>
+  </header>
+
+  <aside id="flyout-menu" aria-hidden="true">
+    <div class="flyout-content">
+      <h3>Navigation</h3>
+      <button type="button" id="executor-info-btn">Supported Executors</button>
+      <button type="button" id="changelog-btn">Version History</button>
+      <button type="button" id="pet-info-btn">Pet Spawner Info</button>
+    </div>
+  </aside>
+
+  <main>
+    <section class="hero">
+      <div class="title-container">
+        <div id="logo-bottle" class="bottle-container">
+          <div class="bottle">
+            <div class="bottle-smoke"></div>
+          </div>
+          <div class="stick"></div>
+        </div>
+        <h1 class="main-title">
+          <span class="x-logo">X</span>
+          <span class="lamhub-text">lam HUB</span>
+        </h1>
+      </div>
+      <p class="subtitle">Premium Roblox Script Hub</p>
+    </section>
+
+    <section class="search-section">
+      <div class="search-container">
+        <input type="search" id="search-bar" placeholder="Search scripts..." aria-label="Search scripts">
+      </div>
+    </section>
+
+    <section class="scripts-section">
+      <div class="scripts-container" id="scripts-container">
+        <article class="script-card" data-category="visual premium">
+          <header>
+            <h2>Pet Spawner Script</h2>
+            <div class="script-meta">
+              <div class="status-tags">
+                <span class="tag updated" title="Recently updated">Updated</span>
+                <span class="tag working" title="Currently working">Working</span>
+                <span class="tag verified" title="Verified functionality">Verified</span>
+                <span class="tag visual" title="Visual effects">Visual</span>
+                <span class="tag premium" title="Premium script">Premium</span>
+              </div>
+            </div>
+          </header>
+          
+          <div class="script-content">
+            <pre id="script1" aria-label="Pet spawner script code">loadstring(game:HttpGet("https://raw.githubusercontent.com/HyperRamzey/HyperRamzey.github.io/main/script1.lua"))()</pre>
+          </div>
+          
+          <footer class="card-buttons">
+            <button type="button" class="btn copy-btn" data-script="script1" aria-label="Copy pet spawner script">
+              <svg class="animated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              Copy Script
+            </button>
+            <button type="button" class="btn secondary-btn" id="pet-info-btn-card" aria-label="Learn more about pet spawner">
+              <svg class="animated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+              </svg>
+              Learn More
+            </button>
+          </footer>
+        </article>
+
+        <article class="script-card" data-category="visual">
+          <header>
+            <h2>Visual Effects Script</h2>
+            <div class="script-meta">
+              <div class="status-tags">
+                <span class="tag working" title="Currently working">Working</span>
+                <span class="tag visual" title="Visual effects">Visual</span>
+              </div>
+            </div>
+          </header>
+          
+          <div class="script-content">
+            <pre id="script2" aria-label="Visual effects script code">loadstring(game:HttpGet("https://raw.githubusercontent.com/HyperRamzey/HyperRamzey.github.io/main/script2.lua"))()</pre>
+          </div>
+          
+          <footer class="card-buttons">
+            <button class="btn copy-btn" data-script="script2" aria-label="Copy visual effects script">
+              <svg class="animated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              Copy Script
+            </button>
+          </footer>
+        </article>
+
+        <article class="script-card" data-category="utility">
+          <header>
+            <h2>Utility Script</h2>
+            <div class="script-meta">
+              <div class="status-tags">
+                <span class="tag working" title="Currently working">Working</span>
+                <span class="tag fixed" title="Recently fixed">Fixed</span>
+              </div>
+            </div>
+          </header>
+          
+          <div class="script-content">
+            <pre id="script3" aria-label="Utility script code">loadstring(game:HttpGet("https://raw.githubusercontent.com/HyperRamzey/HyperRamzey.github.io/main/script3.lua"))()</pre>
+          </div>
+          
+          <footer class="card-buttons">
+            <button class="btn copy-btn" data-script="script3" aria-label="Copy utility script">
+              <svg class="animated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              Copy Script
+            </button>
+          </footer>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      <a href="https://hyperramzey.github.io/">EclipseHub Github pages site</a> © 2025 by 
+      <a href="https://github.com/HyperRamzey">HyperRamzey</a> is licensed under 
+      <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>
+      <img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="Creative Commons" height="19">
+      <img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="Attribution" height="19">
+      <img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" alt="NonCommercial" height="19">
+      <img src="https://mirrors.creativecommons.org/presskit/icons/nd.svg" alt="NoDerivatives" height="19">
+    </p>
+  </footer>
+
+  <div id="image-overlay" class="image-overlay" aria-hidden="true">
+    <button class="close-overlay" aria-label="Close image overlay">&times;</button>
+    <img id="enlarged-image" class="enlarged-image" src="" alt="Enlarged preview">
+  </div>
+
+  <div id="executor-modal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-content">
+      <button class="close-modal" aria-label="Close modal">&times;</button>
+      <h2>Supported Executors</h2>
+      <p>SOME of the supported executors that those scripts should work on. Try them all:</p>
+      <ul class="executor-list">
+        <li><a href="https://deltaexploits.gg/" target="_blank" rel="noopener noreferrer">Delta:</a> Android, IOS, Free</li>
+        <li><a href="https://spdmteam.com/index" target="_blank" rel="noopener noreferrer">Arceus:</a> Android, IOS, Free</li>
+        <li><a href="https://codex.lol/" target="_blank" rel="noopener noreferrer">Codex:</a> Android: Free</li>
+        <li><a href="https://discord.gg/fluxus" target="_blank" rel="noopener noreferrer">Flux:</a> PC, Free</li>
+        <li><a href="https://getwave.gg/" target="_blank" rel="noopener noreferrer">Wave:</a> PC, 20 dollars/month</li>
+        <li><a href="https://www.vegax.gg/" target="_blank" rel="noopener noreferrer">Vega:</a> ??</li>
+        <li><a href="https://discord.gg/getswift" target="_blank" rel="noopener noreferrer">Swift:</a> PC, Free</li>
+        <li>Cryptic: Android, Free</li>
+        <li>Trigon: ??</li>
+        <li><a href="https://discord.gg/theargon" target="_blank" rel="noopener noreferrer">Argon:</a> PC, Free</li>
+        <li><a href="https://macsploit.co/" target="_blank" rel="noopener noreferrer">Macsploit:</a> Mac, 10 dollars/life</li>
+        <li><a href="https://evon.cc/" target="_blank" rel="noopener noreferrer">Evon:</a> Android, Free</li>
+        <li><a href="https://discord.gg/zovware" target="_blank" rel="noopener noreferrer">Seliware:</a> PC, 10 dollars/month</li>
+        <li><a href="https://discord.gg/awpgg" target="_blank" rel="noopener noreferrer">AWP:</a> PC, 20 dollars/month</li>
+        <li><a href="https://nihon.lol/" target="_blank" rel="noopener noreferrer">Nihon:</a> PC, 20 dollars/month</li>
+        <li><a href="https://www.getselene.net/" target="_blank" rel="noopener noreferrer">Selene:</a> PC, Free</li>
+        <li><a href="https://synapsez.net/" target="_blank" rel="noopener noreferrer">Synapse Z:</a> PC, 6.5 dollars/week</li>
+        <li><a href="https://sirhurt.net/" target="_blank" rel="noopener noreferrer">Sirhurt:</a> PC, 12 dollars/month</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="changelog-modal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-content">
+      <button class="close-modal" aria-label="Close modal">&times;</button>
+      <h2 id="changelog-title">Script Version History</h2>
+      <div class="version-history" id="version-history-content"></div>
+    </div>
+  </div>
+
+  <div id="pet-modal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-content">
+      <button class="close-modal" aria-label="Close modal">&times;</button>
+      <h2>New Pet Spawner Script Visual and Serverside (with key)</h2>
+      <div class="image-gallery">
+        <div class="gallery-img-container">
+          <img src="https://hyperramzey.github.io/image2.jpg" alt="Script Preview 1" class="gallery-img">
+        </div>
+        <div class="gallery-img-container">
+          <img src="https://hyperramzey.github.io/image1.jpg" alt="Script Preview 2" class="gallery-img">
+        </div>
+      </div>
+      <p>This powerful script allows you to spawn and customize pets directly in Adopt Me with both visual and serverside capabilities.</p>
+      <button id="spawner-copy-btn" class="btn copy-btn">💪 Copy Script</button>
+    </div>
+  </div>
+
+  <button id="back-to-top" aria-label="Back to top">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="18,15 12,9 6,15"></polyline>
+    </svg>
+  </button>
+</body>
+</html> 
