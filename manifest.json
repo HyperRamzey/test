@@ -1,52 +1,166 @@
 {
-  "name": "xlam HUB",
+  "name": "xlam HUB - Premium Roblox Script Hub",
   "short_name": "xlam HUB",
-  "description": "Premium script hub for Roblox executors with liquid glass design",
+  "description": "Xlam HUB by scriptblox",
+  "version": "2.0.0",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#1a1c3c",
-  "theme_color": "#4f46e5",
+  "theme_color": "#1a1c3c",
   "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["entertainment", "games", "utilities"],
   "icons": [
     {
-      "src": "images/icon-72x72.png",
+      "src": "images/icon-72x72.png?v=2.0.0",
       "sizes": "72x72",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable any"
     },
     {
-      "src": "images/icon-96x96.png",
+      "src": "images/icon-96x96.png?v=2.0.0",
       "sizes": "96x96",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable any"
     },
     {
-      "src": "images/icon-128x128.png",
+      "src": "images/icon-128x128.png?v=2.0.0",
       "sizes": "128x128",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable any"
     },
     {
-      "src": "images/icon-144x144.png",
+      "src": "images/icon-144x144.png?v=2.0.0",
       "sizes": "144x144",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable any"
     },
     {
-      "src": "images/icon-152x152.png",
+      "src": "images/icon-152x152.png?v=2.0.0",
       "sizes": "152x152",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable any"
     },
     {
-      "src": "images/icon-192x192.png",
+      "src": "images/icon-192x192.png?v=2.0.0",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable any"
     },
     {
-      "src": "images/icon-384x384.png",
+      "src": "images/icon-384x384.png?v=2.0.0",
       "sizes": "384x384",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable any"
     },
     {
-      "src": "images/icon-512x512.png",
+      "src": "images/icon-512x512.png?v=2.0.0",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable any"
     }
-  ]
+  ],
+  "screenshots": [
+    {
+      "src": "images/screenshot-desktop.png?v=2.0.0",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Desktop view of xlam HUB"
+    },
+    {
+      "src": "images/screenshot-mobile.png?v=2.0.0",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Mobile view of xlam HUB"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Pet Spawner",
+      "short_name": "Pet Spawner",
+      "description": "Access the Pet Spawner script",
+      "url": "/#pet-spawner",
+      "icons": [
+        {
+          "src": "images/icon-96x96.png?v=2.0.0",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Visual Effects",
+      "short_name": "Visual Effects",
+      "description": "Access the Visual Effects script",
+      "url": "/#visual-effects",
+      "icons": [
+        {
+          "src": "images/icon-96x96.png?v=2.0.0",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Utility Script",
+      "short_name": "Utility",
+      "description": "Access the Utility script",
+      "url": "/#utility",
+      "icons": [
+        {
+          "src": "images/icon-96x96.png?v=2.0.0",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+roblox",
+      "url": "/?script=%s"
+    }
+  ],
+  "file_handlers": [
+    {
+      "action": "/",
+      "accept": {
+        "text/plain": [".lua", ".txt"]
+      }
+    }
+  ],
+  "share_target": {
+    "action": "/",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "permissions": [
+    "clipboard-write",
+    "clipboard-read"
+  ],
+  "features": [
+    "Cross Platform",
+    "GPU Acceleration",
+    "High Refresh Rate Support",
+    "Accessibility Features",
+    "PWA Support"
+  ],
+  "author": "HyperRamzey",
+  "homepage_url": "https://hyperramzey.github.io",
+  "repository": "https://github.com/HyperRamzey/HyperRamzey.github.io",
+  "bugs_url": "https://github.com/HyperRamzey/HyperRamzey.github.io/issues",
+  "support_url": "https://github.com/HyperRamzey/HyperRamzey.github.io/discussions"
 } 
