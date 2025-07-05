@@ -231,4 +231,65 @@ if (document.readyState === 'loading') {
 window.scrollToSection = scrollToSection;
 window.copyScript = copyScript;
 window.enableNotifications = enableNotifications;
-window.dismissPrompt = dismissPrompt; 
+window.dismissPrompt = dismissPrompt;
+
+// Copy buttons functionality with loading bar and emoji
+const copyButtons = document.querySelectorAll('.copy-btn');
+const emojis = ['❤️', '💖', '💗', '💓', '💕', '💞'];
+
+copyButtons.forEach(copyBtn => {
+  let isLoading = false;
+  let isCopied = false;
+  const originalButtonHTML = copyBtn.innerHTML;
+  copyBtn.addEventListener('click', async (event) => {
+    if (isLoading) return;
+    if (isCopied) {
+      copyBtn.innerHTML = originalButtonHTML;
+      copyBtn.classList.remove('copied');
+      isCopied = false;
+      return;
+    }
+    const button = event.currentTarget;
+    const scriptCard = button.closest('.script-card');
+    const preElement = scriptCard.querySelector('pre');
+    let scriptText = preElement.dataset.script === 'RANDOM' ? 'loadstring(game:HttpGet(\'https://example.com/script\'))()' : preElement.dataset.script;
+    isLoading = true;
+    const originalPreText = preElement.innerText;
+    preElement.innerText = '';
+    preElement.style.position = 'relative';
+    const loaderHTML = `
+      <div class="loader-container">
+        <div class="loader-bar"></div>
+        <div class="loader-text">
+          <span>Generating Script for you</span>
+          <span class="emoji">${emojis[Math.floor(Math.random() * emojis.length)]}</span>
+        </div>
+      </div>
+    `;
+    preElement.insertAdjacentHTML('beforeend', loaderHTML);
+    const loaderBar = preElement.querySelector('.loader-bar');
+    loaderBar.style.width = '0%';
+    setTimeout(() => {
+      loaderBar.style.transition = 'width 1.2s cubic-bezier(0.4,0,0.2,1)';
+      loaderBar.style.width = '100%';
+    }, 50);
+    setTimeout(async () => {
+      preElement.innerText = scriptText;
+      try {
+        await navigator.clipboard.writeText(scriptText);
+        copyBtn.innerHTML = '✓ Copied!';
+        copyBtn.classList.add('copied');
+        isCopied = true;
+      } catch (e) {
+        copyBtn.innerHTML = 'Failed!';
+      }
+      isLoading = false;
+      setTimeout(() => {
+        copyBtn.innerHTML = originalButtonHTML;
+        copyBtn.classList.remove('copied');
+        isCopied = false;
+        preElement.innerText = originalPreText;
+      }, 2000);
+    }, 1400);
+  });
+}); 

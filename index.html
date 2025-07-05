@@ -67,56 +67,133 @@
         </div>
       </nav>
     </header>
-    <main id="main-content" class="main-content">
+    <!-- BIOS Loading Screen -->
+    <div id="bios-screen">
+      <div class="bios-text" style="animation-delay: 0.1s">Award Modular BIOS v6.00PG, An Energy Star Ally</div>
+      <div class="bios-text" style="animation-delay: 0.2s">Copyright (C) 1984-2003, Award Software, Inc.</div>
+      <div class="bios-text" style="animation-delay: 0.3s"></div>
+      <div class="bios-text" style="animation-delay: 0.4s">ASUS P4P800 ACPI BIOS Revision 1019</div>
+      <div class="bios-text" style="animation-delay: 0.5s"></div>
+      <div class="bios-text" style="animation-delay: 0.6s">CPU : Intel(R) Pentium(R) 4 CPU 3.00GHz</div>
+      <div class="bios-text" style="animation-delay: 0.7s">       Speed : 3000 MHz</div>
+      <div class="bios-text" style="animation-delay: 0.8s"></div>
+      <div class="bios-text" style="animation-delay: 0.9s">Press DEL to enter SETUP</div>
+      <div class="bios-text" style="animation-delay: 1.0s">02/25/2025-i865P-ICH5-6A79AD4IC-00</div>
+      <div class="bios-text" style="animation-delay: 1.1s"></div>
+      <div class="bios-text" style="animation-delay: 1.2s">Detecting IDE drives...</div>
+      <div class="bios-text" style="animation-delay: 1.8s">IDE Primary Master  : WDC WD800JB-00JJC0     80.0GB</div>
+      <div class="bios-text" style="animation-delay: 2.0s">IDE Primary Slave   : None</div>
+      <div class="bios-text" style="animation-delay: 2.2s">IDE Secondary Master: HL-DT-ST DVDRAM GSA-4163B</div>
+      <div class="bios-text" style="animation-delay: 2.4s">IDE Secondary Slave : None</div>
+      <div class="bios-text" style="animation-delay: 2.6s"></div>
+      <div class="bios-text" style="animation-delay: 2.8s">Memory Test :   524288K  OK</div>
+      <div class="bios-text" style="animation-delay: 3.0s"></div>
+      <div class="bios-text" style="animation-delay: 3.2s">Loading Windows XP...<span class="bios-cursor"></span></div>
+    </div>
+    <!-- Windows XP Login Screen -->
+    <div id="xp-login-screen">
+      <div class="xp-login-box">
+        <div class="xp-logo">xlam HUB</div>
+        <div class="xp-user-icon">👤</div>
+        <div class="xp-username dancing-text">Guest User</div>
+        <button type="button" class="xp-login-btn" onclick="enterMainMenu()">➜ Click here to begin</button>
+      </div>
+    </div>
+    <!-- Entry Screen with WebGL -->
+    <div id="entry-screen" style="display: none;">
+      <canvas id="webgl-canvas"></canvas>
+      <div class="custom-cursor"></div>
+      <div class="entry-bottle-container">
+        <div class="entry-bottle">
+          <div class="entry-smoke"></div>
+          <div class="entry-stick"></div>
+        </div>
+      </div>
+      <div class="entry-text dancing-text">xlam HUB</div>
+      <div class="click-to-enter dancing-text">Click anywhere to enter</div>
+    </div>
+    <!-- Star Constellation Background -->
+    <div id="star-constellation"></div>
+    <!-- Main Content -->
+    <main id="main-content" style="display: none;">
+      <div class="title-container">
+        <div id="logo-bottle">
+          <div class="bottle">
+            <div class="bottle-smoke"></div>
+            <div class="stick"></div>
+          </div>
+        </div>
+        <h1 class="main-title">
+          <svg class="x-logo-svg" width="80" height="80" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="xGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#1DA1F2;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#14171A;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#1DA1F2;stop-opacity:1" />
+              </linearGradient>
+              <filter id="xGlow">
+                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                <feMerge>
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+            <path d="M 50 30 L 120 150 L 50 270 M 250 30 L 180 150 L 250 270" 
+                  stroke="#1DA1F2" 
+                  stroke-width="35" 
+                  stroke-linecap="round" 
+                  fill="none"
+                  filter="url(#xGlow)"
+                  class="x-path"/>
+          </svg>
+          <span class="lamhub-text">lamHub</span>
+        </h1>
+      </div>
+      <p class="subtitle">made by scriptblox coders</p>
       <div class="search-container">
-        <input id="search-bar" type="text" placeholder="Search for scripts...">
+        <input type="text" id="search-bar" placeholder="Search for scripts...">
       </div>
-      <div class="script-container">
-        <div class="scripts-grid">
-          <div class="script-card">
-            <h3>Infinite Yield</h3>
-            <p>Advanced admin commands for Roblox</p>
-            <button type="button" class="btn btn-primary" onclick="copyScript('infinite-yield')">Copy Script</button>
-          </div>
-          <div class="script-card">
-            <h3>Dex Explorer</h3>
-            <p>Roblox game explorer and debugger</p>
-            <button type="button" class="btn btn-primary" onclick="copyScript('dex-explorer')">Copy Script</button>
-          </div>
-          <div class="script-card">
-            <h3>Remote Spy</h3>
-            <p>Monitor remote events and functions</p>
-            <button type="button" class="btn btn-primary" onclick="copyScript('remote-spy')">Copy Script</button>
-          </div>
+      <div class="scripts-container">
+        <!-- 6 script cards from old site, with meta tags, pre, and copy button -->
+        <div class="script-card" data-script-id="auto-farm" data-title="Eclipse Hub - Adopt Me Autofarm" data-description="This script for Adopt Me will automatically farm for you, collecting cash and helping you get your dream pets faster than ever before. It's safe, efficient, and easy to use.">
+          <h2>eclipse hub - adopt me autofarm</h2>
+          <div class="script-meta"><div class="status-tags"><span class="tag updated">✅ UPDATED</span><span class="tag working">⚡ WORKING</span><span class="tag verified">👑 VERIFIED</span></div></div>
+          <pre data-script="RANDOM">Click "Copy Script" to get the code</pre>
+          <div class="buttons"><button class="btn copy-btn"><svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>Copy Script</button></div>
+        </div>
+        <div class="script-card" data-script-id="pet-spawner-visual" data-title="Adopt Me - Pet Spawner {FIXED, VISUAL ONLY}" data-description="Spawn and customise pets visually – no serverside.">
+          <h2>adopt me - pet spawner</h2>
+          <div class="script-meta"><div class="status-tags"><span class="tag fixed">🔧 FIXED</span><span class="tag visual">👀 VISUAL ONLY</span><span class="tag verified">👑 VERIFIED</span></div></div>
+          <pre data-script="RANDOM">Click "Copy Script" to get the code</pre>
+          <div class="buttons"><button class="btn copy-btn"><svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>Copy Script</button></div>
+        </div>
+        <div class="script-card" data-script-id="trade-checker" data-title="Adopt Me - Trade Value Checker" data-description="Check trade values instantly to avoid bad trades.">
+          <h2>adopt me - trade value checker</h2>
+          <div class="script-meta"><div class="status-tags"><span class="tag updated">✅ UPDATED</span><span class="tag working">⚡ WORKING</span><span class="tag verified">👑 VERIFIED</span></div></div>
+          <pre data-script="RANDOM">Click "Copy Script" to get the code</pre>
+          <div class="buttons"><button class="btn copy-btn"><svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>Copy Script</button></div>
+        </div>
+        <div class="script-card" data-script-id="trade-bypass" data-title="Adopt Me - Trade Bypass" data-description="Bypass trade restrictions effortlessly.">
+          <h2>adopt me - trade bypass</h2>
+          <div class="script-meta"><div class="status-tags"><span class="tag updated">✅ UPDATED</span><span class="tag working">⚡ WORKING</span><span class="tag verified">👑 VERIFIED</span></div></div>
+          <pre data-script="RANDOM">Click "Copy Script" to get the code</pre>
+          <div class="buttons"><button class="btn copy-btn"><svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>Copy Script</button></div>
+        </div>
+        <div class="script-card" data-script-id="food-money" data-title="Adopt Me - Food Money Exploit" data-description="Exploit food mechanics to earn cash quickly.">
+          <h2>adopt me - food money exploit</h2>
+          <div class="script-meta"><div class="status-tags"><span class="tag updated">✅ UPDATED</span><span class="tag working">⚡ WORKING</span><span class="tag verified">👑 VERIFIED</span></div></div>
+          <pre data-script="RANDOM">Click "Copy Script" to get the code</pre>
+          <div class="buttons"><button class="btn copy-btn"><svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>Copy Script</button></div>
+        </div>
+        <div class="script-card" data-script-id="fps-boost" data-title="Adopt Me - FPS Boost & Unlock, Better Graphics, Shaders" data-description="Boost your FPS, unlock better graphics and add beautiful shaders to enhance your Adopt Me gaming experience.">
+          <h2>adopt me fps boost & unlock, better graphics, shaders</h2>
+          <div class="script-meta"><div class="status-tags"><span class="tag updated">✅ UPDATED</span><span class="tag working">⚡ WORKING</span><span class="tag premium">💎 PREMIUM</span><span class="tag verified">👑 VERIFIED</span></div></div>
+          <pre data-script="RANDOM">Click "Copy Script" to get the code</pre>
+          <div class="buttons"><button class="btn copy-btn"><svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>Copy Script</button></div>
         </div>
       </div>
-      <section id="executors" class="executors-section">
-        <h2 class="section-title">Recommended Executors</h2>
-        <div class="scripts-grid">
-          <div class="executor-card">
-            <h3>Synapse X</h3>
-            <p>Premium Roblox executor with advanced features</p>
-            <a href="#" class="btn btn-primary">Download</a>
-          </div>
-          <div class="executor-card">
-            <h3>KRNL</h3>
-            <p>Free executor with good performance</p>
-            <a href="#" class="btn btn-secondary">Download</a>
-          </div>
-          <div class="executor-card">
-            <h3>Script-Ware</h3>
-            <p>Cross-platform executor</p>
-            <a href="#" class="btn btn-primary">Download</a>
-          </div>
-        </div>
-      </section>
-      <section id="about" class="about-section">
-        <h2 class="section-title">About xlam HUB</h2>
-        <p class="about-text">
-          xlam HUB is a premium Roblox script hub designed for performance and reliability.<br>
-          Xlam HUB by scriptblox.
-        </p>
-      </section>
+      <!-- Modals and other overlays from old site would go here -->
     </main>
     <footer class="footer">
       <p>&copy; 2025 xlam HUB. All rights reserved.</p>
