@@ -16,6 +16,8 @@ class ScriptHub {
     this.setupScrollEffects();
     this.setupImageGallery();
     this.setupVersionHistory();
+    this.setupCopyButtons();
+    this.setupScriptRevealFlow();
   }
 
   setupEventListeners() {
@@ -54,54 +56,119 @@ class ScriptHub {
 
   setupCopyButtons() {
     const copyButtons = document.querySelectorAll('.copy-btn');
-    
     copyButtons.forEach(button => {
-      button.addEventListener('click', async (e) => {
+      button.addEventListener('click', (e) => {
         e.preventDefault();
         const scriptId = button.getAttribute('data-script');
-        const scriptElement = document.getElementById(scriptId);
-        
-        if (scriptElement) {
-          try {
-            await navigator.clipboard.writeText(scriptElement.textContent);
-            this.showCopySuccess(button);
-          } catch (err) {
-            this.fallbackCopyTextToClipboard(scriptElement.textContent);
-            this.showCopySuccess(button);
-          }
-        }
+        this.revealScriptWithLoading(scriptId);
       });
     });
   }
 
-  async showCopySuccess(button) {
-    const originalText = button.textContent;
-    button.classList.add('copied');
-    button.textContent = 'Copied!';
-    
-    setTimeout(() => {
-      button.classList.remove('copied');
-      button.innerHTML = originalText;
-    }, 2000);
+  setupScriptRevealFlow() {
+    this.loadingOverlay = document.getElementById('loading-overlay');
+    this.progressBar = document.getElementById('progress-bar');
+    this.scriptModal = document.getElementById('script-modal');
+    this.scriptInput = document.getElementById('script-link-input');
+    this.copyScriptBtn = document.getElementById('copy-script-btn');
+    this.copyFeedback = document.getElementById('copy-feedback');
+    this.closeScriptModalBtn = this.scriptModal.querySelector('.close-modal');
+
+    this.hideLoadingOverlay();
+    this.hideScriptModal();
+
+    this.closeScriptModalBtn.addEventListener('click', () => this.hideScriptModal());
+    this.scriptModal.addEventListener('click', (e) => {
+      if (e.target === this.scriptModal) this.hideScriptModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (this.scriptModal.classList.contains('visible') && e.key === 'Escape') {
+        this.hideScriptModal();
+      }
+    });
+
+    this.copyScriptBtn.addEventListener('click', () => {
+      this.copyScriptToClipboard();
+    });
+    this.scriptInput.addEventListener('click', () => {
+      this.scriptInput.select();
+      this.copyScriptToClipboard();
+    });
   }
 
-  fallbackCopyTextToClipboard(text) {
-    const textArea = document.createElement('textarea');
-    textArea.value = text;
-    textArea.style.top = '0';
-    textArea.style.left = '0';
-    textArea.style.position = 'fixed';
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    
+  revealScriptWithLoading(scriptId) {
+    this.hideScriptModal();
+    this.showLoadingOverlay();
+    this.progressBar.style.width = '0%';
+    const duration = 2000 + Math.floor(Math.random() * 8000);
+    setTimeout(() => {
+      this.progressBar.style.transition = `width ${duration}ms cubic-bezier(0.4,0,0.2,1)`;
+      this.progressBar.style.width = '100%';
+    }, 50);
+    setTimeout(() => {
+      this.hideLoadingOverlay();
+      const scriptElement = document.getElementById(scriptId);
+      const scriptText = scriptElement ? scriptElement.textContent.trim() : '';
+      this.showScriptModal(scriptText);
+    }, duration + 100);
+  }
+
+  showLoadingOverlay() {
+    this.loadingOverlay.classList.add('visible');
+    this.loadingOverlay.style.display = 'flex';
+    setTimeout(() => {
+      this.loadingOverlay.style.opacity = '1';
+    }, 10);
+  }
+  hideLoadingOverlay() {
+    this.loadingOverlay.classList.remove('visible');
+    this.loadingOverlay.style.opacity = '0';
+    setTimeout(() => {
+      this.loadingOverlay.style.display = 'none';
+      this.progressBar.style.width = '0%';
+      this.progressBar.style.transition = '';
+    }, 300);
+  }
+  showScriptModal(scriptText) {
+    this.scriptInput.value = scriptText;
+    this.scriptModal.classList.add('visible');
+    this.scriptModal.style.display = 'flex';
+    setTimeout(() => {
+      this.scriptModal.style.opacity = '1';
+      this.scriptInput.focus();
+      this.scriptInput.select();
+      this.copyScriptToClipboard();
+    }, 10);
+  }
+  hideScriptModal() {
+    this.scriptModal.classList.remove('visible');
+    this.scriptModal.style.opacity = '0';
+    setTimeout(() => {
+      this.scriptModal.style.display = 'none';
+      this.copyFeedback.style.display = 'none';
+    }, 300);
+  }
+  copyScriptToClipboard() {
+    if (!this.scriptInput.value) return;
+    this.scriptInput.select();
     try {
       document.execCommand('copy');
+      this.showCopyFeedback();
     } catch (err) {
-      console.error('Fallback: Oops, unable to copy', err);
+      navigator.clipboard.writeText(this.scriptInput.value).then(() => {
+        this.showCopyFeedback();
+      });
     }
-    
-    document.body.removeChild(textArea);
+  }
+  showCopyFeedback() {
+    this.copyFeedback.style.display = 'block';
+    this.copyFeedback.style.opacity = '1';
+    setTimeout(() => {
+      this.copyFeedback.style.opacity = '0';
+      setTimeout(() => {
+        this.copyFeedback.style.display = 'none';
+      }, 400);
+    }, 1200);
   }
 
   initializeModals() {

@@ -32,7 +32,7 @@
     </nav>
   </header>
 
-  <aside id="flyout-menu" aria-hidden="true">
+  <aside id="flyout-menu">
     <div class="flyout-content">
       <h3>Navigation</h3>
       <button type="button" id="executor-info-btn">Supported Executors</button>
@@ -40,6 +40,28 @@
       <button type="button" id="pet-info-btn">Pet Spawner Info</button>
     </div>
   </aside>
+
+  <!-- Loading overlay for script reveal -->
+  <div id="loading-overlay" class="modal-overlay loading-overlay">
+    <div class="modal-content loading-modal-content">
+      <div class="loader-spinner"></div>
+      <div class="progress-bar-container">
+        <div id="progress-bar"></div>
+      </div>
+      <div class="loading-text">Loading script...</div>
+    </div>
+  </div>
+
+  <!-- Script modal for copy-to-clipboard -->
+  <div id="script-modal" class="modal-overlay script-modal">
+    <div class="modal-content script-modal-content">
+      <button class="close-modal" type="button" aria-label="Close">&times;</button>
+      <div class="script-modal-title">Your Script</div>
+      <input id="script-link-input" type="text" readonly>
+      <button id="copy-script-btn" class="btn copy-btn" type="button">Copy to Clipboard</button>
+      <div id="copy-feedback">Copied!</div>
+    </div>
+  </div>
 
   <main>
     <section class="hero">
@@ -81,11 +103,11 @@
           </header>
           
           <div class="script-content">
-            <pre id="script1" aria-label="Pet spawner script code">loadstring(game:HttpGet("https://raw.githubusercontent.com/HyperRamzey/HyperRamzey.github.io/main/script1.lua"))()</pre>
+            <pre id="script1">loadstring(game:HttpGet("https://raw.githubusercontent.com/HyperRamzey/HyperRamzey.github.io/main/script1.lua"))()</pre>
           </div>
           
           <footer class="card-buttons">
-            <button type="button" class="btn copy-btn" data-script="script1" aria-label="Copy pet spawner script">
+            <button class="btn copy-btn" data-script="script1" aria-label="Copy pet spawner script" type="button">
               <svg class="animated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                 <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -115,11 +137,11 @@
           </header>
           
           <div class="script-content">
-            <pre id="script2" aria-label="Visual effects script code">loadstring(game:HttpGet("https://raw.githubusercontent.com/HyperRamzey/HyperRamzey.github.io/main/script2.lua"))()</pre>
+            <pre id="script2">loadstring(game:HttpGet("https://raw.githubusercontent.com/HyperRamzey/HyperRamzey.github.io/main/script2.lua"))()</pre>
           </div>
           
           <footer class="card-buttons">
-            <button class="btn copy-btn" data-script="script2" aria-label="Copy visual effects script">
+            <button class="btn copy-btn" data-script="script2" aria-label="Copy visual effects script" type="button">
               <svg class="animated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                 <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -141,11 +163,11 @@
           </header>
           
           <div class="script-content">
-            <pre id="script3" aria-label="Utility script code">loadstring(game:HttpGet("https://raw.githubusercontent.com/HyperRamzey/HyperRamzey.github.io/main/script3.lua"))()</pre>
+            <pre id="script3">loadstring(game:HttpGet("https://raw.githubusercontent.com/HyperRamzey/HyperRamzey.github.io/main/script3.lua"))()</pre>
           </div>
           
           <footer class="card-buttons">
-            <button class="btn copy-btn" data-script="script3" aria-label="Copy utility script">
+            <button class="btn copy-btn" data-script="script3" aria-label="Copy utility script" type="button">
               <svg class="animated-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                 <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -170,14 +192,14 @@
     </p>
   </footer>
 
-  <div id="image-overlay" class="image-overlay" aria-hidden="true">
-    <button class="close-overlay" aria-label="Close image overlay">&times;</button>
-    <img id="enlarged-image" class="enlarged-image" src="" alt="Enlarged preview">
+  <div id="image-overlay" class="image-overlay">
+    <button class="close-overlay" aria-label="Close image overlay" type="button">&times;</button>
+    <img id="enlarged-image" class="enlarged-image" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Enlarged preview">
   </div>
 
-  <div id="executor-modal" class="modal-overlay" aria-hidden="true">
+  <div id="executor-modal" class="modal-overlay">
     <div class="modal-content">
-      <button class="close-modal" aria-label="Close modal">&times;</button>
+      <button class="close-modal" aria-label="Close modal" type="button">&times;</button>
       <h2>Supported Executors</h2>
       <p>SOME of the supported executors that those scripts should work on. Try them all:</p>
       <ul class="executor-list">
@@ -203,17 +225,17 @@
     </div>
   </div>
 
-  <div id="changelog-modal" class="modal-overlay" aria-hidden="true">
+  <div id="changelog-modal" class="modal-overlay">
     <div class="modal-content">
-      <button class="close-modal" aria-label="Close modal">&times;</button>
+      <button class="close-modal" aria-label="Close modal" type="button">&times;</button>
       <h2 id="changelog-title">Script Version History</h2>
       <div class="version-history" id="version-history-content"></div>
     </div>
   </div>
 
-  <div id="pet-modal" class="modal-overlay" aria-hidden="true">
+  <div id="pet-modal" class="modal-overlay">
     <div class="modal-content">
-      <button class="close-modal" aria-label="Close modal">&times;</button>
+      <button class="close-modal" aria-label="Close modal" type="button">&times;</button>
       <h2>New Pet Spawner Script Visual and Serverside (with key)</h2>
       <div class="image-gallery">
         <div class="gallery-img-container">
@@ -224,11 +246,11 @@
         </div>
       </div>
       <p>This powerful script allows you to spawn and customize pets directly in Adopt Me with both visual and serverside capabilities.</p>
-      <button id="spawner-copy-btn" class="btn copy-btn">💪 Copy Script</button>
+      <button id="spawner-copy-btn" class="btn copy-btn" type="button">💪 Copy Script</button>
     </div>
   </div>
 
-  <button id="back-to-top" aria-label="Back to top">
+  <button id="back-to-top" aria-label="Back to top" type="button">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <polyline points="18,15 12,9 6,15"></polyline>
     </svg>
