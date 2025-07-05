@@ -1430,4 +1430,166 @@ h1 {
   }
 }
 
-/* === End Layout Patch === */ 
+/* === End Layout Patch === */
+
+/* === Logo and Branding Styles === */
+.logo-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 30px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+.bottle-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 150px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 10px 10px 50% 50%;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  transform: translate3d(-50%, -50%, 0);
+  will-change: transform;
+  backface-visibility: hidden;
+  contain: layout style paint;
+  isolation: isolate;
+}
+.stick {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  width: 120px;
+  height: 8px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  transform: translate3d(-50%, -50%, 0) rotate(45deg);
+  will-change: transform;
+  backface-visibility: hidden;
+  contain: layout style paint;
+  isolation: isolate;
+}
+
+/* === Script Container and Card Styles === */
+.script-container {
+  background: rgba(26, 28, 60, 0.8);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  padding: 2.5rem 2rem 2rem 2rem;
+  margin: 0 auto 40px auto;
+  max-width: 1200px;
+}
+.scripts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+  align-items: stretch;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+.script-card {
+  background: rgba(40, 42, 70, 0.3);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  contain: layout style paint;
+}
+
+/* === Executor Card Styles === */
+.executors-section .scripts-grid {
+  margin-top: 2.5rem;
+}
+.executor-card {
+  background: rgba(40, 42, 70, 0.3);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  contain: layout style paint;
+}
+
+/* === Search Bar Styles === */
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 32px auto 24px auto;
+  max-width: 600px;
+  width: 100%;
+}
+#search-bar {
+  width: 100%;
+  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  color: white;
+  font-size: 1rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, border-color;
+  transform: translateZ(0);
+}
+#search-bar:focus {
+  outline: none;
+  border-color: #c026d3;
+  transform: translateZ(0) scale(1.02);
+}
+
+/* === Footer Styles === */
+.footer {
+  text-align: center;
+  margin: 0 auto;
+  padding: 32px 0 16px 0;
+  color: #f0f0f0;
+  font-size: 1em;
+}
+
+/* === About Section Styles === */
+.about-section .about-text {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1.1em;
+  color: #f0f0f0;
+}
+
+/* === Responsive Tweaks === */
+@media (max-width: 900px) {
+  .logo-container {
+    width: 120px;
+    height: 120px;
+  }
+  .bottle-logo {
+    width: 60px;
+    height: 90px;
+  }
+  .stick {
+    width: 60px;
+    height: 4px;
+  }
+  .script-container, .scripts-grid, .executor-card, .script-card {
+    max-width: 98vw;
+    padding: 1.2rem;
+  }
+}
+
+/* === End Patch for 1:1 Visual Match === */ 

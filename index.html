@@ -39,110 +39,87 @@
 </head>
 <body>
   <div id="app">
+    <div class="logo-container floating">
+      <div class="bottle-logo"></div>
+      <div class="stick"></div>
+    </div>
     <header class="header">
+      <h1 class="main-title">xlam HUB</h1>
+      <p class="subtitle">Premium Roblox Script Hub<br>Xlam HUB by scriptblox</p>
+      <div class="hero-buttons">
+        <button class="btn btn-primary" onclick="scrollToSection('scripts')">Get Scripts</button>
+        <button class="btn btn-secondary" onclick="scrollToSection('executors')">View Executors</button>
+      </div>
       <nav class="nav">
-        <div class="nav-brand">
-          <h1 class="brand-title">xlam HUB</h1>
-        </div>
-        
-        <div class="nav-controls">
-          <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-            <span class="theme-icon">🌙</span>
-          </button>
-          
-          <button type="button" id="menu-btn" class="menu-btn" aria-label="Open menu">
-            <span class="menu-icon"></span>
-          </button>
+        <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+          <span class="theme-icon">🌙</span>
+        </button>
+        <button type="button" id="menu-btn" class="menu-btn" aria-label="Open menu">
+          <span class="menu-icon"></span>
+        </button>
+        <div id="flyout-menu" class="flyout-menu">
+          <div class="menu-content">
+            <a href="#scripts" class="menu-item">Scripts</a>
+            <a href="#executors" class="menu-item">Executors</a>
+            <a href="#about" class="menu-item">About</a>
+            <a href="#contact" class="menu-item">Contact</a>
+          </div>
         </div>
       </nav>
-      
-      <div id="flyout-menu" class="flyout-menu">
-        <div class="menu-content">
-          <a href="#scripts" class="menu-item">Scripts</a>
-          <a href="#executors" class="menu-item">Executors</a>
-          <a href="#about" class="menu-item">About</a>
-          <a href="#contact" class="menu-item">Contact</a>
+    </header>
+    <main id="main-content" class="main-content">
+      <div class="search-container">
+        <input id="search-bar" type="text" placeholder="Search for scripts...">
+      </div>
+      <div class="script-container">
+        <div class="scripts-grid">
+          <div class="script-card">
+            <h3>Infinite Yield</h3>
+            <p>Advanced admin commands for Roblox</p>
+            <button type="button" class="btn btn-primary" onclick="copyScript('infinite-yield')">Copy Script</button>
+          </div>
+          <div class="script-card">
+            <h3>Dex Explorer</h3>
+            <p>Roblox game explorer and debugger</p>
+            <button type="button" class="btn btn-primary" onclick="copyScript('dex-explorer')">Copy Script</button>
+          </div>
+          <div class="script-card">
+            <h3>Remote Spy</h3>
+            <p>Monitor remote events and functions</p>
+            <button type="button" class="btn btn-primary" onclick="copyScript('remote-spy')">Copy Script</button>
+          </div>
         </div>
       </div>
-    </header>
-
-    <main id="main-content" class="main-content">
-      <section class="hero">
-        <div class="hero-content">
-          <h2 class="hero-title">Premium Roblox Script Hub</h2>
-          <p class="hero-subtitle">Xlam HUB by scriptblox</p>
-          <div class="hero-buttons">
-            <button class="btn btn-primary" onclick="scrollToSection('scripts')">Get Scripts</button>
-            <button class="btn btn-secondary" onclick="scrollToSection('executors')">View Executors</button>
-          </div>
-        </div>
-      </section>
-
-      <section id="scripts" class="scripts-section">
-        <div class="container">
-          <h2 class="section-title">Popular Scripts</h2>
-          <div class="scripts-grid">
-            <div class="script-card">
-              <h3>Infinite Yield</h3>
-              <p>Advanced admin commands for Roblox</p>
-              <button type="button" class="btn btn-primary" onclick="copyScript('infinite-yield')">Copy Script</button>
-            </div>
-            
-            <div class="script-card">
-              <h3>Dex Explorer</h3>
-              <p>Roblox game explorer and debugger</p>
-              <button type="button" class="btn btn-primary" onclick="copyScript('dex-explorer')">Copy Script</button>
-            </div>
-            
-            <div class="script-card">
-              <h3>Remote Spy</h3>
-              <p>Monitor remote events and functions</p>
-              <button type="button" class="btn btn-primary" onclick="copyScript('remote-spy')">Copy Script</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section id="executors" class="executors-section">
-        <div class="container">
-          <h2 class="section-title">Recommended Executors</h2>
-          <div class="executors-grid">
-            <div class="executor-card">
-              <h3>Synapse X</h3>
-              <p>Premium Roblox executor with advanced features</p>
-              <a href="#" class="btn btn-primary">Download</a>
-            </div>
-            
-            <div class="executor-card">
-              <h3>KRNL</h3>
-              <p>Free executor with good performance</p>
-              <a href="#" class="btn btn-secondary">Download</a>
-            </div>
-            
-            <div class="executor-card">
-              <h3>Script-Ware</h3>
-              <p>Cross-platform executor</p>
-              <a href="#" class="btn btn-primary">Download</a>
-            </div>
+        <h2 class="section-title">Recommended Executors</h2>
+        <div class="scripts-grid">
+          <div class="executor-card">
+            <h3>Synapse X</h3>
+            <p>Premium Roblox executor with advanced features</p>
+            <a href="#" class="btn btn-primary">Download</a>
+          </div>
+          <div class="executor-card">
+            <h3>KRNL</h3>
+            <p>Free executor with good performance</p>
+            <a href="#" class="btn btn-secondary">Download</a>
+          </div>
+          <div class="executor-card">
+            <h3>Script-Ware</h3>
+            <p>Cross-platform executor</p>
+            <a href="#" class="btn btn-primary">Download</a>
           </div>
         </div>
       </section>
-
       <section id="about" class="about-section">
-        <div class="container">
-          <h2 class="section-title">About xlam HUB</h2>
-          <p class="about-text">
-            xlam HUB is a premium Roblox script hub designed for performance and reliability. 
-            Xlam HUB by scriptblox.
-          </p>
-        </div>
+        <h2 class="section-title">About xlam HUB</h2>
+        <p class="about-text">
+          xlam HUB is a premium Roblox script hub designed for performance and reliability.<br>
+          Xlam HUB by scriptblox.
+        </p>
       </section>
     </main>
-
     <footer class="footer">
-      <div class="container">
-        <p>&copy; 2025 xlam HUB. All rights reserved.</p>
-      </div>
+      <p>&copy; 2025 xlam HUB. All rights reserved.</p>
     </footer>
   </div>
 
