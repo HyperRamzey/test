@@ -1325,4 +1325,109 @@ h1 {
   font-size: 2.5em;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
-} 
+}
+
+/* === Layout & Centering Patch for Modern Look === */
+
+/* Center the main app container */
+#app, .main-content, main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: block;
+}
+
+/* Center logo and header */
+.header, .logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.brand-title, .main-title, .logo-title {
+  text-align: center;
+  margin: 0 auto 16px auto;
+  font-size: 2.5em;
+  font-family: 'Permanent Marker', cursive, sans-serif;
+  font-weight: bold;
+}
+
+/* Center search bar */
+#search-bar, .search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 32px auto 24px auto;
+  max-width: 600px;
+  width: 100%;
+}
+
+/* Grid layout for scripts */
+.scripts-grid, .scripts-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+  align-items: stretch;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.script-card, .executor-card {
+  background: var(--card-background, rgba(40, 42, 70, 0.3));
+  border: 1px solid var(--card-border, rgba(255,255,255,0.1));
+  border-radius: var(--border-radius, 16px);
+  padding: 2rem;
+  box-shadow: 0 8px 32px var(--shadow-medium, rgba(0,0,0,0.3));
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  contain: layout style paint;
+}
+
+/* Center section titles */
+.section-title {
+  text-align: center;
+  margin: 2.5rem auto 1.5rem auto;
+  font-size: 2em;
+  font-family: 'Permanent Marker', cursive, sans-serif;
+  font-weight: bold;
+}
+
+/* Center footer */
+.footer, .footer .container {
+  text-align: center;
+  margin: 0 auto;
+  padding: 32px 0 16px 0;
+}
+
+/* Center About section */
+.about-section .container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Responsive tweaks */
+@media (max-width: 900px) {
+  #app, .main-content, main {
+    max-width: 98vw;
+    padding: 0 8px;
+  }
+  .scripts-grid, .scripts-container {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+  .script-card, .executor-card {
+    max-width: 98vw;
+    padding: 1.2rem;
+  }
+}
+
+/* === End Layout Patch === */ 
