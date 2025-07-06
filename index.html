@@ -290,249 +290,76 @@
   </div>
 
   <main id="main-content" style="display: none;">
-    <div id="free-pet-placard" class="placard">🎁 GET A FREE PET</div>
-    <a id="back-to-top">▲</a>
-    <div class="title-container">
-        <div id="logo-bottle">
-            <div class="bottle">
-                <div class="bottle-smoke"></div>
-                <div class="stick"></div>
-            </div>
-        </div>
-        <h1 class="main-title">
-            <svg class="x-logo-svg" width="80" height="80" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <lineargradient id="xGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#1DA1F2;stop-opacity:1" />
-                        <stop offset="50%" style="stop-color:#14171A;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#1DA1F2;stop-opacity:1" />
-                    </lineargradient>
-                    <filter id="xGlow">
-                        <fegaussianblur stdDeviation="3" result="coloredBlur"/>
-                        <femerge>
-                            <femergenode in="coloredBlur"/>
-                            <femergenode in="SourceGraphic"/>
-                        </femerge>
-                    </filter>
-                </defs>
-                <path d="M 50 30 L 120 150 L 50 270 M 250 30 L 180 150 L 250 270"
-                      stroke="#1DA1F2"
-                      stroke-width="35"
-                      stroke-linecap="round"
-                      fill="none"
-                      filter="url(#xGlow)"
-                      class="x-path"/>
-            </svg>
-            <span class="lamhub-text">lamHub</span>
-        </h1>
+    <div class="logo-container floating">
+      <div class="bottle-logo"></div>
+      <div class="stick"></div>
     </div>
+    <h1 class="main-title">xlam HUB</h1>
     <p class="subtitle">made by scriptblox coders</p>
-
     <div class="search-container">
-        <input type="text" id="search-bar" placeholder="Search for scripts...">
+      <input type="text" id="search-bar" placeholder="Search for scripts...">
     </div>
-
-    <div class="scripts-container">
-        <div class="script-card"
-             data-script-id="auto-farm"
-             data-title="Eclipse Hub - Adopt Me Autofarm"
-             data-description="This script for Adopt Me will automatically farm for you, collecting cash and helping you get your dream pets faster than ever before. It's safe, efficient, and easy to use.">
-            <h2>eclipse hub - adopt me autofarm</h2>
-            <div class="script-meta">
-                <div class="status-tags">
-                    <span class="tag updated">✅ UPDATED</span>
-                    <span class="tag working">⚡ WORKING</span>
-                    <span class="tag verified">👑 VERIFIED</span>
-                </div>
-            </div>
-            <pre data-script="RANDOM">Click "Copy Script" to get the code</pre>
-            <div class="buttons">
-                <button class="btn copy-btn" type="button">
-                  <svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                  </svg>
-                  Copy Script
-                </button>
-            </div>
+    <div class="script-container">
+      <div class="script-item">
+        <h2>eclipse hub - adopt me autofarm</h2>
+        <div class="tags">
+          <span class="tag updated">updated</span>
+          <span class="tag working">working</span>
+          <span class="tag verified">verified</span>
         </div>
-
-        <div class="script-card"
-             data-script-id="pet-spawner-visual"
-             data-title="Adopt Me - Pet Spawner {FIXED, VISUAL ONLY}"
-             data-description="Spawn and customise pets visually – no serverside.">
-            <h2>adopt me - pet spawner</h2>
-            <div class="script-meta">
-                <div class="status-tags">
-                    <span class="tag fixed">🔧 FIXED</span>
-                    <span class="tag visual">👀 VISUAL ONLY</span>
-                    <span class="tag verified">👑 VERIFIED</span>
-                </div>
-            </div>
-            <pre data-script="RANDOM">Click "Copy Script" to get the code</pre>
-            <div class="buttons">
-                <button class="btn copy-btn" type="button">
-                  <svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                  </svg>
-                  Copy Script
-                </button>
-            </div>
+        <pre>Click "Copy Script" to get the code</pre>
+        <button class="copy-btn" type="button">Copy Script</button>
+      </div>
+      <div class="script-item">
+        <h2>adopt me - pet spawner</h2>
+        <div class="tags">
+          <span class="tag fixed">fixed</span>
+          <span class="tag visual">visual only</span>
+          <span class="tag verified">verified</span>
         </div>
-
-        <div class="script-card"
-             data-script-id="trade-checker"
-             data-title="Adopt Me - Trade Value Checker"
-             data-description="Check trade values instantly to avoid bad trades.">
-            <h2>adopt me - trade value checker</h2>
-            <div class="script-meta">
-                <div class="status-tags">
-                    <span class="tag updated">✅ UPDATED</span>
-                    <span class="tag working">⚡ WORKING</span>
-                    <span class="tag verified">👑 VERIFIED</span>
-                </div>
-            </div>
-            <pre data-script="RANDOM">Click "Copy Script" to get the code</pre>
-            <div class="buttons">
-                <button class="btn copy-btn" type="button">
-                  <svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                  </svg>
-                  Copy Script
-                </button>
-            </div>
+        <pre>Click "Copy Script" to get the code</pre>
+        <button class="copy-btn" type="button">Copy Script</button>
+      </div>
+      <div class="script-item">
+        <h2>adopt me - trade value checker</h2>
+        <div class="tags">
+          <span class="tag updated">updated</span>
+          <span class="tag working">working</span>
+          <span class="tag verified">verified</span>
         </div>
-
-        <div class="script-card"
-             data-script-id="trade-bypass"
-             data-title="Adopt Me - Trade Bypass"
-             data-description="Bypass trade restrictions effortlessly.">
-            <h2>adopt me - trade bypass</h2>
-            <div class="script-meta">
-                <div class="status-tags">
-                    <span class="tag updated">✅ UPDATED</span>
-                    <span class="tag working">⚡ WORKING</span>
-                    <span class="tag verified">👑 VERIFIED</span>
-                </div>
-            </div>
-            <pre data-script="RANDOM">Click "Copy Script" to get the code</pre>
-            <div class="buttons">
-                <button class="btn copy-btn" type="button">
-                  <svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                  </svg>
-                  Copy Script
-                </button>
-            </div>
+        <pre>Click "Copy Script" to get the code</pre>
+        <button class="copy-btn" type="button">Copy Script</button>
+      </div>
+      <div class="script-item">
+        <h2>adopt me - trade bypass</h2>
+        <div class="tags">
+          <span class="tag updated">updated</span>
+          <span class="tag working">working</span>
+          <span class="tag verified">verified</span>
         </div>
-
-        <div class="script-card"
-             data-script-id="food-money"
-             data-title="Adopt Me - Food Money Exploit"
-             data-description="Exploit food mechanics to earn cash quickly.">
-            <h2>adopt me - food money exploit</h2>
-            <div class="script-meta">
-                <div class="status-tags">
-                    <span class="tag updated">✅ UPDATED</span>
-                    <span class="tag working">⚡ WORKING</span>
-                    <span class="tag verified">👑 VERIFIED</span>
-                </div>
-            </div>
-            <pre data-script="RANDOM">Click "Copy Script" to get the code</pre>
-            <div class="buttons">
-                <button class="btn copy-btn" type="button">
-                  <svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                  </svg>
-                  Copy Script
-                </button>
-            </div>
+        <pre>Click "Copy Script" to get the code</pre>
+        <button class="copy-btn" type="button">Copy Script</button>
+      </div>
+      <div class="script-item">
+        <h2>adopt me - food money exploit</h2>
+        <div class="tags">
+          <span class="tag updated">updated</span>
+          <span class="tag working">working</span>
+          <span class="tag verified">verified</span>
         </div>
-
-        <div class="script-card"
-             data-script-id="fps-boost"
-             data-title="Adopt Me - FPS Boost &amp; Unlock, Better Graphics, Shaders"
-             data-description="Boost your FPS, unlock better graphics and add beautiful shaders to enhance your Adopt Me gaming experience.">
-            <h2>adopt me fps boost &amp; unlock, better graphics, shaders</h2>
-            <div class="script-meta">
-                <div class="status-tags">
-                    <span class="tag updated">✅ UPDATED</span>
-                    <span class="tag working">⚡ WORKING</span>
-                    <span class="tag premium">💎 PREMIUM</span>
-                    <span class="tag verified">👑 VERIFIED</span>
-                </div>
-            </div>
-            <pre data-script="RANDOM">Click "Copy Script" to get the code</pre>
-            <div class="buttons">
-                <button class="btn copy-btn" type="button">
-                  <svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                  </svg>
-                  Copy Script
-                </button>
-            </div>
+        <pre>Click "Copy Script" to get the code</pre>
+        <button class="copy-btn" type="button">Copy Script</button>
+      </div>
+      <div class="script-item">
+        <h2>adopt me fps boost &amp; unlock, better graphics, shaders</h2>
+        <div class="tags">
+          <span class="tag updated">updated</span>
+          <span class="tag working">working</span>
+          <span class="tag premium">premium</span>
+          <span class="tag verified">verified</span>
         </div>
-    </div>
-
-    <div id="script-detail-modal" class="modal-overlay">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2 id="modal-title">Script Details</h2>
-            <div class="image-gallery">
-                <div class="gallery-img-container">
-                    <img src="https://hyperramzey.github.io/image2.jpg" alt="Script Preview 1" class="gallery-img">
-                </div>
-                <div class="gallery-img-container">
-                    <img src="https://hyperramzey.github.io/image1.jpg" alt="Script Preview 2" class="gallery-img">
-                </div>
-            </div>
-            <p id="modal-description"></p>
-            <button id="modal-copy-btn" class="btn copy-btn" type="button">💪 Copy Script</button>
-        </div>
-    </div>
-
-    <div id="pet-modal" class="modal-overlay">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Get Your Free Pet!</h2>
-            <p>To claim your free pet, follow these simple steps:</p>
-            <ol>
-                <li>Go to my <a href="https://www.tiktok.com/@yohd57?_t=ZS-8x8D1JhGgeg&_r=1" target="_blank" rel="noopener noreferrer">TikTok Profile</a>.</li>
-                <li>Like and comment on all of my videos.</li>
-                <li>Send me a Direct Message on TikTok when you're done.</li>
-            </ol>
-            <p>I'll get back to you with your reward!</p>
-        </div>
-    </div>
-
-    <div id="script-preview-modal" class="modal-overlay">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Script Link</h2>
-            <p>Your script is ready! It has been automatically copied to your clipboard.</p>
-            <div class="script-link-container">
-                <pre id="script-link-display"></pre>
-            </div>
-            <div class="script-preview-modal-center">
-                <button id="manual-copy-btn" class="btn copy-btn" type="button">📋 Copy Again</button>
-            </div>
-            <p class="script-preview-modal-note">If you are stuck at loading, try to use newest android or ios delta executor or relaunch roblox if you are using it already</p>
-        </div>
-    </div>
-
-    <div id="pet-spawner-modal" class="modal-overlay">
-      <div class="modal-content">
-        <span class="close-modal">&times;</span>
-        <h2>New Pet Spawner Script Visual and Serverside (with key)</h2>
-        <div class="image-gallery">
-          <div class="gallery-img-container">
-            <img src="https://hyperramzey.github.io/image2.jpg" alt="Script Preview 1" class="gallery-img">
-          </div>
-          <div class="gallery-img-container">
-            <img src="https://hyperramzey.github.io/image1.jpg" alt="Script Preview 2" class="gallery-img">
-          </div>
-        </div>
-        <p>This is the latest version of the pet spawner script with both visual and serverside capabilities. It includes a key system for enhanced security.</p>
-        <button class="btn copy-btn pet-spawner-modal-btn" type="button">💪 Copy Script</button>
+        <pre>Click "Copy Script" to get the code</pre>
+        <button class="copy-btn" type="button">Copy Script</button>
       </div>
     </div>
   </main>

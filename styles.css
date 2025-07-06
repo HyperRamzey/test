@@ -127,136 +127,121 @@ body {
   width: 200px;
   height: 200px;
   margin: 0 auto 30px;
-  
-  /* Enhanced GPU acceleration */
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  will-change: transform;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  
-  /* Performance optimization */
-  contain: layout style paint;
-  isolation: isolate;
-  content-visibility: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Bottle Logo with Cross-Browser 3D Acceleration */
-.bottle-logo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100px;
-  height: 150px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  border-radius: 10px 10px 50% 50%;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-  
-  /* Cross-browser 3D transforms */
-  -webkit-transform: translate3d(-50%, -50%, 0);
-  -moz-transform: translate3d(-50%, -50%, 0);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate3d(-50%, -50%, 0);
-  
-  /* Enhanced GPU acceleration */
-  will-change: transform;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-  
-  /* Performance containment */
-  contain: layout style paint;
-  isolation: isolate;
+.main-title {
+  text-align: center;
+  font-size: 2.5em;
+  margin: 0 0 10px 0;
+  font-family: 'Permanent Marker', cursive, sans-serif;
+  font-weight: bold;
+  letter-spacing: 2px;
 }
 
-/* Stick with Enhanced GPU Optimization */
-.stick {
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  width: 120px;
-  height: 8px;
-  background: #f0f0f0;
-  border-radius: 4px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  
-  /* Cross-browser 3D transforms with rotation */
-  -webkit-transform: translate3d(-50%, -50%, 0) rotate(45deg);
-  -moz-transform: translate3d(-50%, -50%, 0) rotate(45deg);
-  -ms-transform: translate(-50%, -50%) rotate(45deg);
-  transform: translate3d(-50%, -50%, 0) rotate(45deg);
-  
-  /* GPU acceleration */
-  will-change: transform;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  
-  /* Performance isolation */
-  contain: layout style paint;
-  isolation: isolate;
+.subtitle {
+  text-align: center;
+  font-size: 1.2em;
+  color: #bdbdbd;
+  margin-bottom: 30px;
 }
 
-/* Script Container with Modern GPU Techniques */
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+#search-bar {
+  width: 350px;
+  max-width: 90vw;
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1.1em;
+  background: #23244a;
+  color: #fff;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
 .script-container {
-  background: rgba(26, 28, 60, 0.8);
-  border-radius: 15px;
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 800px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  
-  /* Enhanced 3D context */
-  -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-  -webkit-perspective: 1000px;
-  -moz-perspective: 1000px;
-  perspective: 1000px;
-  
-  /* GPU optimization */
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  will-change: transform;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  
-  /* Performance containment */
-  contain: layout style paint;
-  isolation: isolate;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+  margin: 0 auto;
+  max-width: 1200px;
 }
 
-/* Script Item with Cross-Browser 3D Effects */
 .script-item {
-  background: linear-gradient(135deg, #1a1c3c, #2a2c4c);
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  
-  /* Cross-browser 3D transforms */
-  -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-  
-  /* GPU acceleration */
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  will-change: transform, box-shadow;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  
-  /* Performance optimization */
-  contain: layout style paint;
-  isolation: isolate;
+  background: rgba(26, 28, 60, 0.92);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  padding: 28px 32px 22px 32px;
+  min-width: 320px;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.18s cubic-bezier(.4,2,.6,1), box-shadow 0.18s;
 }
 
 .script-item:hover {
-  -webkit-transform: translateZ(20px) rotateX(5deg);
-  -moz-transform: translateZ(20px) rotateX(5deg);
-  transform: translateZ(20px) rotateX(5deg);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+}
+
+.script-item h2 {
+  font-size: 1.25em;
+  margin-bottom: 10px;
+  text-align: center;
+  font-family: 'Permanent Marker', cursive, sans-serif;
+  font-weight: bold;
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.tag {
+  background: #23244a;
+  color: #fff;
+  border-radius: 6px;
+  padding: 2px 10px;
+  font-size: 0.95em;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.tag.updated { background: #4caf50; }
+.tag.working { background: #2196f3; }
+.tag.verified { background: #ffc107; color: #23244a; }
+.tag.fixed { background: #ff9800; }
+.tag.visual { background: #9c27b0; }
+.tag.premium { background: #e91e63; }
+
+.copy-btn {
+  margin-top: 10px;
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(90deg, #667eea, #c026d3);
+  color: #fff;
+  font-size: 1.1em;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.copy-btn:hover {
+  background: linear-gradient(90deg, #c026d3, #667eea);
 }
 
 /* Import custom font */
