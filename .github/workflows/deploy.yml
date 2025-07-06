@@ -53,6 +53,7 @@ jobs:
           cp -r *.js _site/
           cp -r *.json _site/
           cp -r images _site/ 2>/dev/null || true
+          cp -r fonts _site/ 2>/dev/null || true
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
