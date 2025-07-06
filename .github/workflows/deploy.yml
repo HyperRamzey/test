@@ -1,0 +1,54 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build TypeScript
+        run: npm run build
+
+      - name: Generate cache busting timestamp
+        run: echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
+
+      - name: Replace placeholders with timestamp
+        run: |
+          find . -name "*.html" -type f -exec sed -i "s/PLACEHOLDER/$TIMESTAMP/g" {} \;
+          find . -name "*.css" -type f -exec sed -i "s/PLACEHOLDER/$TIMESTAMP/g" {} \;
+          find . -name "*.js" -type f -exec sed -i "s/PLACEHOLDER/$TIMESTAMP/g" {} \;
+
+      - name: Create _site directory
+        run: mkdir -p _site
+
+      - name: Copy files to _site
+        run: |
+          cp -r *.html _site/
+          cp -r *.css _site/
+          cp -r *.js _site/
+          cp -r *.json _site/
+          cp -r images _site/ 2>/dev/null || true
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site

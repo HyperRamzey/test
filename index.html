@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1c3c">
+
+  <!--
+    Comprehensive Cache-Control Meta Tags.
+    These instruct the browser to never cache this HTML file,
+    ensuring users always get the latest version. This is the
+    best-practice approach for GitHub Pages.
+  -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <title>xlam HUB</title>
+  <link rel="manifest" href="manifest.json?v=<%= Date.now() %>">
+  <!-- Comprehensive Cache Busting Implementation -->
+  <!-- Additional cache busting headers -->
+  <meta http-equiv="Last-Modified" content="0">
+  <meta http-equiv="If-Modified-Since" content="0">
+  <meta http-equiv="If-None-Match" content="0">
+
+  <!-- Prevent caching of the page itself -->
+  <meta name="cache-control" content="no-cache">
+  <meta name="expires" content="-1">
+  <meta name="pragma" content="no-cache">
+  <link rel="apple-touch-icon" href="images/icon-192x192.png?v=<%= Date.now() %>">
+  <!-- Custom Permanent Marker font loaded via @font-face below -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <link rel="stylesheet" href="styles.css?v=PLACEHOLDER">
+
+  <!-- Three.js for WebGL shader effects -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Vertex Shader -->
+  <script id="vertexShader" type="x-shader/x-vertex">
+    void main() {
+      gl_Position = vec4(position, 1.0);
+    }
+  </script>
+
+  <!-- Fragment Shader -->
+  <script id="fragmentShader" type="x-shader/x-fragment">
+    uniform vec2 u_resolution;
+    uniform vec2 u_mouse;
+    uniform float u_time;
+
+    const float decay = .98;
+    const float exposure = .15;
+    const vec3 lightcolour = vec3(0.8, 0.5, 1.0);
+    const vec3 falloffcolour = vec3(1.0, 0.5, 0.7);
+    const vec3 bgcolour = vec3(0.0, 0.0, 0.0);
+    const float falloff = .2;
+    const int samples = 20;
+    const float density = .6;
+    const float weight = .6;
+
+    #define PI 3.141592653589793
+    #define TAU 6.283185307179586
+
+    float circle(vec2 uv, float radius) {
+      return length(uv) - radius;
+    }
+
+    float rect(vec2 uv, vec2 size, vec2 center) {
+        vec2 half_size = size * 0.5;
+        vec2 p = uv - center;
+        vec2 d = abs(p) - half_size;
+        return length(max(d, vec2(0.0))) + min(max(d.x, d.y), 0.0);
+    }
+
+    float shapes(vec2 uv) {
+      uv *= 2.5; // Scale up for better visibility
+
+      // Bottle body
+      float body = rect(uv, vec2(0.5, 0.8), vec2(0.0, -0.3));
+      // Bottle neck
+      float neck = rect(uv, vec2(0.2, 0.4), vec2(0.0, 0.4));
+
+      float bottle = min(body, neck);
+
+      // Stick
+      vec2 stick_uv = uv;
+      mat2 rot = mat2(cos(0.785), -sin(0.785), sin(0.785), cos(0.785)); // 45 deg rot
+      stick_uv = rot * (stick_uv - vec2(-0.7, 0.2));
+      float stick = rect(stick_uv, vec2(0.1, 1.0), vec2(0.0, 0.0));
+
+      float final_shape = min(bottle, stick);
+
+      return 1.0 - smoothstep(0.0, 0.05, final_shape);
+    }
+
+    float occlusion(vec2 uv, vec2 lightpos, float objects) {
+      float dist = length(lightpos - uv);
+      return (1.0 - smoothstep(0.0, 2.0, dist)) * (1.0 - objects);
+    }
+
+    void main() {
+      vec2 uv = (gl_FragCoord.xy - 0.5 * u_resolution.xy) / min(u_resolution.x, u_resolution.y);
+
+      // Scale to cover full screen properly
+      float scale = 3.0;
+      uv *= scale;
+
+      vec2 lightpos = (u_mouse - 0.5) * scale * 2.0;
+
+      // Add some automatic movement when mouse is not active
+      if (length(u_mouse - vec2(0.5)) < 0.01) {
+        lightpos = vec2(sin(u_time * 0.3) * 1.5, cos(u_time * 0.5) * 1.0);
+      }
+
+      float obj = shapes(uv);
+      float map = occlusion(uv, lightpos, obj);
+
+      vec2 dtc = (uv - lightpos) * (1.0 / float(samples) * density);
+      float illumination_decay = 1.0;
+
+      for(int i = 0; i < samples; i++) {
+        uv -= dtc;
+        float stepped_map = occlusion(uv, lightpos, shapes(uv));
+        stepped_map *= illumination_decay * weight;
+        illumination_decay *= decay;
+        map += stepped_map;
+      }
+
+      float l = length(lightpos - uv);
+      vec3 lightcolour_mixed = mix(lightcolour, falloffcolour, l * falloff);
+
+      // Enhanced color mixing
+      vec3 colour = vec3(bgcolour + map * exposure * lightcolour_mixed);
+
+      // Add some atmospheric glow
+      float glow = exp(-l * 0.5) * 0.1;
+      colour += vec3(glow * 0.3, glow * 0.6, glow * 1.0);
+
+      gl_FragColor = vec4(colour, 1.0);
+    }
+  </script>
+</head>
+<body>
+  <div id="bios-screen">
+    <div class="bios-text animation-delay-01">Award Modular BIOS v6.00PG, An Energy Star Ally</div>
+    <div class="bios-text animation-delay-02">Copyright (C) 1984-2003, Award Software, Inc.</div>
+    <div class="bios-text animation-delay-03"></div>
+    <div class="bios-text animation-delay-04">ASUS P4P800 ACPI BIOS Revision 1019</div>
+    <div class="bios-text animation-delay-05"></div>
+    <div class="bios-text animation-delay-06">CPU : Intel(R) Pentium(R) 4 CPU 3.00GHz</div>
+    <div class="bios-text animation-delay-07">       Speed : 3000 MHz</div>
+    <div class="bios-text animation-delay-08"></div>
+    <div class="bios-text animation-delay-09">Press DEL to enter SETUP</div>
+    <div class="bios-text animation-delay-10">02/25/2025-i865P-ICH5-6A79AD4IC-00</div>
+    <div class="bios-text animation-delay-11"></div>
+    <div class="bios-text animation-delay-12">Detecting IDE drives...</div>
+    <div class="bios-text animation-delay-18">IDE Primary Master  : WDC WD800JB-00JJC0     80.0GB</div>
+    <div class="bios-text animation-delay-20">IDE Primary Slave   : None</div>
+    <div class="bios-text animation-delay-22">IDE Secondary Master: HL-DT-ST DVDRAM GSA-4163B</div>
+    <div class="bios-text animation-delay-24">IDE Secondary Slave : None</div>
+    <div class="bios-text animation-delay-26"></div>
+    <div class="bios-text animation-delay-28">Memory Test :   524288K  OK</div>
+    <div class="bios-text animation-delay-30"></div>
+    <div class="bios-text animation-delay-32">Loading Windows XP...<span class="bios-cursor"></span></div>
+  </div>
+
+  <div id="xp-login-screen">
+    <div class="xp-login-box">
+      <div class="xp-logo">xlam HUB</div>
+      <div class="xp-user-icon">👤</div>
+      <div class="xp-username dancing-text">Guest User</div>
+      <button class="xp-login-btn" onclick="enterMainMenu()" type="button">➜ Click here to begin</button>
+    </div>
+  </div>
+
+  <div id="entry-screen" style="display: none;">
+    <canvas id="webgl-canvas"></canvas>
+    <div class="custom-cursor"></div>
+    <div class="entry-bottle-container">
+      <div class="entry-bottle">
+        <div class="entry-smoke"></div>
+        <div class="entry-stick"></div>
+      </div>
+    </div>
+    <div class="entry-text dancing-text">xlam HUB</div>
+    <div class="click-to-enter dancing-text">Click anywhere to enter</div>
+  </div>
+
+  <div id="star-constellation"></div>
+
+  <svg id="wave-background" preserveAspectRatio="none" viewBox="0 0 1440 560">
+    <defs>
+      <lineargradient id="wave-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#667eea">
+          <animate attributeName="stop-color" values="#667eea;#c026d3;#ff5858;#667eea" dur="10s" repeatCount="indefinite" />
+        </stop>
+        <stop offset="50%" style="stop-color:#c026d3">
+          <animate attributeName="stop-color" values="#c026d3;#ff5858;#667eea;#c026d3" dur="10s" repeatCount="indefinite" />
+        </stop>
+        <stop offset="100%" style="stop-color:#ff5858">
+          <animate attributeName="stop-color" values="#ff5858;#667eea;#c026d3;#ff5858" dur="10s" repeatCount="indefinite" />
+        </stop>
+      </lineargradient>
+
+      <lineargradient id="icon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#667eea" />
+        <stop offset="100%" style="stop-color:#c026d3" />
+      </lineargradient>
+    </defs>
+
+    <path fill="url(#wave-gradient)" opacity="0.3">
+      <animate attributeName="d"
+        values="M0,160L48,176C96,192,192,224,288,218.7C384,213,480,171,576,170.7C672,171,768,213,864,208C960,203,1056,149,1152,138.7C1248,128,1344,160,1392,176L1440,192L1440,560L1392,560C1344,560,1248,560,1152,560C1056,560,960,560,864,560C768,560,672,560,576,560C480,560,384,560,288,560C192,560,96,560,48,560L0,560Z;
+                M0,192L48,181.3C96,171,192,149,288,165.3C384,181,480,235,576,250.7C672,267,768,245,864,208C960,171,1056,117,1152,122.7C1248,128,1344,192,1392,224L1440,256L1440,560L1392,560C1344,560,1248,560,1152,560C1056,560,960,560,864,560C768,560,672,560,576,560C480,560,384,560,288,560C192,560,96,560,48,560L0,560Z;
+                M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,213.3C672,224,768,224,864,208C960,192,1056,160,1152,154.7C1248,149,1344,171,1392,181.3L1440,192L1440,560L1392,560C1344,560,1248,560,1152,560C1056,560,960,560,864,560C768,560,672,560,576,560C480,560,384,560,288,560C192,560,96,560,48,560L0,560Z;
+                M0,160L48,176C96,192,192,224,288,218.7C384,213,480,171,576,170.7C672,171,768,213,864,208C960,203,1056,149,1152,138.7C1248,128,1344,160,1392,176L1440,192L1440,560L1392,560C1344,560,1248,560,1152,560C1056,560,960,560,864,560C768,560,672,560,576,560C480,560,384,560,288,560C192,560,96,560,48,560L0,560Z"
+        dur="20s"
+        repeatCount="indefinite"
+      />
+    </path>
+
+    <path fill="url(#wave-gradient)" opacity="0.2">
+      <animate attributeName="d"
+        values="M0,256L48,240C96,224,192,192,288,197.3C384,203,480,245,576,261.3C672,277,768,267,864,234.7C960,203,1056,149,1152,144C1248,139,1344,181,1392,202.7L1440,224L1440,560L1392,560C1344,560,1248,560,1152,560C1056,560,960,560,864,560C768,560,672,560,576,560C480,560,384,560,288,560C192,560,96,560,48,560L0,560Z;
+                M0,288L48,277.3C96,267,192,245,288,240C384,235,480,245,576,240C672,235,768,213,864,224C960,235,1056,277,1152,282.7C1248,288,1344,256,1392,240L1440,224L1440,560L1392,560C1344,560,1248,560,1152,560C1056,560,960,560,864,560C768,560,672,560,576,560C480,560,384,560,288,560C192,560,96,560,48,560L0,560Z;
+                M0,320L48,309.3C96,299,192,277,288,277.3C384,277,480,299,576,304C672,309,768,299,864,282.7C960,267,1056,245,1152,250.7C1248,256,1344,288,1392,304L1440,320L1440,560L1392,560C1344,560,1248,560,1152,560C1056,560,960,560,864,560C768,560,672,560,576,560C480,560,384,560,288,560C192,560,96,560,48,560L0,560Z;
+                M0,256L48,240C96,224,192,192,288,197.3C384,203,480,245,576,261.3C672,277,768,267,864,234.7C960,203,1056,149,1152,144C1248,139,1344,181,1392,202.7L1440,224L1440,560L1392,560C1344,560,1248,560,1152,560C1056,560,960,560,864,560C768,560,672,560,576,560C480,560,384,560,288,560C192,560,96,560,48,560L0,560Z"
+        dur="15s"
+        repeatCount="indefinite"
+      />
+    </path>
+  </svg>
+
+  <div id="notification-prompt" class="auto-prompt">
+    <p><strong>📬 Stay Updated!</strong><br>Get notified about new scripts and updates every hour?</p>
+    <button class="accept-btn" onclick="enableNotifications()" type="button">Enable</button>
+    <button class="dismiss-btn" onclick="dismissPrompt('notification-prompt')" type="button">Maybe Later</button>
+  </div>
+
+  <div id="install-prompt" class="auto-prompt">
+    <p><strong>📱 Install xlam HUB!</strong><br>Add to your home screen for quick access?</p>
+    <button class="accept-btn" onclick="installPWA()" type="button">Install</button>
+    <button class="dismiss-btn" onclick="dismissPrompt('install-prompt')" type="button">Not Now</button>
+  </div>
+
+  <button id="menu-btn" type="button">
+    <span class="visually-hidden">Open menu</span>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+  </button>
+  <div id="flyout-menu">
+    <div class="flyout-content">
+      <h3>Settings</h3>
+      <button id="theme-toggle" type="button">
+        <svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"/>
+        </svg>
+        Toggle Light/Dark Mode
+      </button>
+      <button id="install-pwa" type="button">
+        <svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+        </svg>
+        Install App
+      </button>
+      <button id="notifications-toggle" type="button">
+        <svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+        </svg>
+        Enable Notifications
+      </button>
+
+      <h3>Information</h3>
+      <a href="#" id="faq-link">
+        <svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+        </svg>
+        FAQ / Executors
+      </a>
+
+      <h3>Language</h3>
+      <select id="language-selector">
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+      </select>
+    </div>
+  </div>
+
+  <main id="main-content" style="display: none;">
+    <div id="free-pet-placard" class="placard">🎁 GET A FREE PET</div>
+    <a id="back-to-top">▲</a>
+    <div class="title-container">
+        <div id="logo-bottle">
+            <div class="bottle">
+                <div class="bottle-smoke"></div>
+                <div class="stick"></div>
+            </div>
+        </div>
+        <h1 class="main-title">
+            <svg class="x-logo-svg" width="80" height="80" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <lineargradient id="xGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#1DA1F2;stop-opacity:1" />
+                        <stop offset="50%" style="stop-color:#14171A;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#1DA1F2;stop-opacity:1" />
+                    </lineargradient>
+                    <filter id="xGlow">
+                        <fegaussianblur stdDeviation="3" result="coloredBlur"/>
+                        <femerge>
+                            <femergenode in="coloredBlur"/>
+                            <femergenode in="SourceGraphic"/>
+                        </femerge>
+                    </filter>
+                </defs>
+                <path d="M 50 30 L 120 150 L 50 270 M 250 30 L 180 150 L 250 270"
+                      stroke="#1DA1F2"
+                      stroke-width="35"
+                      stroke-linecap="round"
+                      fill="none"
+                      filter="url(#xGlow)"
+                      class="x-path"/>
+            </svg>
+            <span class="lamhub-text">lamHub</span>
+        </h1>
+    </div>
+    <p class="subtitle">made by scriptblox coders</p>
+
+    <div class="search-container">
+        <input type="text" id="search-bar" placeholder="Search for scripts...">
+    </div>
+
+    <div class="scripts-container">
+        <div class="script-card"
+             data-script-id="auto-farm"
+             data-title="Eclipse Hub - Adopt Me Autofarm"
+             data-description="This script for Adopt Me will automatically farm for you, collecting cash and helping you get your dream pets faster than ever before. It's safe, efficient, and easy to use.">
+            <h2>eclipse hub - adopt me autofarm</h2>
+            <div class="script-meta">
+                <div class="status-tags">
+                    <span class="tag updated">✅ UPDATED</span>
+                    <span class="tag working">⚡ WORKING</span>
+                    <span class="tag verified">👑 VERIFIED</span>
+                </div>
+            </div>
+            <pre data-script="RANDOM">Click "Copy Script" to get the code</pre>
+            <div class="buttons">
+                <button class="btn copy-btn" type="button">
+                  <svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                  </svg>
+                  Copy Script
+                </button>
+            </div>
+        </div>
+
+        <div class="script-card"
+             data-script-id="pet-spawner-visual"
+             data-title="Adopt Me - Pet Spawner {FIXED, VISUAL ONLY}"
+             data-description="Spawn and customise pets visually – no serverside.">
+            <h2>adopt me - pet spawner</h2>
+            <div class="script-meta">
+                <div class="status-tags">
+                    <span class="tag fixed">🔧 FIXED</span>
+                    <span class="tag visual">👀 VISUAL ONLY</span>
+                    <span class="tag verified">👑 VERIFIED</span>
+                </div>
+            </div>
+            <pre data-script="RANDOM">Click "Copy Script" to get the code</pre>
+            <div class="buttons">
+                <button class="btn copy-btn" type="button">
+                  <svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                  </svg>
+                  Copy Script
+                </button>
+            </div>
+        </div>
+
+        <div class="script-card"
+             data-script-id="trade-checker"
+             data-title="Adopt Me - Trade Value Checker"
+             data-description="Check trade values instantly to avoid bad trades.">
+            <h2>adopt me - trade value checker</h2>
+            <div class="script-meta">
+                <div class="status-tags">
+                    <span class="tag updated">✅ UPDATED</span>
+                    <span class="tag working">⚡ WORKING</span>
+                    <span class="tag verified">👑 VERIFIED</span>
+                </div>
+            </div>
+            <pre data-script="RANDOM">Click "Copy Script" to get the code</pre>
+            <div class="buttons">
+                <button class="btn copy-btn" type="button">
+                  <svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                  </svg>
+                  Copy Script
+                </button>
+            </div>
+        </div>
+
+        <div class="script-card"
+             data-script-id="trade-bypass"
+             data-title="Adopt Me - Trade Bypass"
+             data-description="Bypass trade restrictions effortlessly.">
+            <h2>adopt me - trade bypass</h2>
+            <div class="script-meta">
+                <div class="status-tags">
+                    <span class="tag updated">✅ UPDATED</span>
+                    <span class="tag working">⚡ WORKING</span>
+                    <span class="tag verified">👑 VERIFIED</span>
+                </div>
+            </div>
+            <pre data-script="RANDOM">Click "Copy Script" to get the code</pre>
+            <div class="buttons">
+                <button class="btn copy-btn" type="button">
+                  <svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                  </svg>
+                  Copy Script
+                </button>
+            </div>
+        </div>
+
+        <div class="script-card"
+             data-script-id="food-money"
+             data-title="Adopt Me - Food Money Exploit"
+             data-description="Exploit food mechanics to earn cash quickly.">
+            <h2>adopt me - food money exploit</h2>
+            <div class="script-meta">
+                <div class="status-tags">
+                    <span class="tag updated">✅ UPDATED</span>
+                    <span class="tag working">⚡ WORKING</span>
+                    <span class="tag verified">👑 VERIFIED</span>
+                </div>
+            </div>
+            <pre data-script="RANDOM">Click "Copy Script" to get the code</pre>
+            <div class="buttons">
+                <button class="btn copy-btn" type="button">
+                  <svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                  </svg>
+                  Copy Script
+                </button>
+            </div>
+        </div>
+
+        <div class="script-card"
+             data-script-id="fps-boost"
+             data-title="Adopt Me - FPS Boost &amp; Unlock, Better Graphics, Shaders"
+             data-description="Boost your FPS, unlock better graphics and add beautiful shaders to enhance your Adopt Me gaming experience.">
+            <h2>adopt me fps boost &amp; unlock, better graphics, shaders</h2>
+            <div class="script-meta">
+                <div class="status-tags">
+                    <span class="tag updated">✅ UPDATED</span>
+                    <span class="tag working">⚡ WORKING</span>
+                    <span class="tag premium">💎 PREMIUM</span>
+                    <span class="tag verified">👑 VERIFIED</span>
+                </div>
+            </div>
+            <pre data-script="RANDOM">Click "Copy Script" to get the code</pre>
+            <div class="buttons">
+                <button class="btn copy-btn" type="button">
+                  <svg class="animated-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                  </svg>
+                  Copy Script
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="script-detail-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modal-title">Script Details</h2>
+            <div class="image-gallery">
+                <div class="gallery-img-container">
+                    <img src="https://hyperramzey.github.io/image2.jpg" alt="Script Preview 1" class="gallery-img">
+                </div>
+                <div class="gallery-img-container">
+                    <img src="https://hyperramzey.github.io/image1.jpg" alt="Script Preview 2" class="gallery-img">
+                </div>
+            </div>
+            <p id="modal-description"></p>
+            <button id="modal-copy-btn" class="btn copy-btn" type="button">💪 Copy Script</button>
+        </div>
+    </div>
+
+    <div id="pet-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Get Your Free Pet!</h2>
+            <p>To claim your free pet, follow these simple steps:</p>
+            <ol>
+                <li>Go to my <a href="https://www.tiktok.com/@yohd57?_t=ZS-8x8D1JhGgeg&_r=1" target="_blank" rel="noopener noreferrer">TikTok Profile</a>.</li>
+                <li>Like and comment on all of my videos.</li>
+                <li>Send me a Direct Message on TikTok when you're done.</li>
+            </ol>
+            <p>I'll get back to you with your reward!</p>
+        </div>
+    </div>
+
+    <div id="script-preview-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Script Link</h2>
+            <p>Your script is ready! It has been automatically copied to your clipboard.</p>
+            <div class="script-link-container">
+                <pre id="script-link-display"></pre>
+            </div>
+            <div class="script-preview-modal-center">
+                <button id="manual-copy-btn" class="btn copy-btn" type="button">📋 Copy Again</button>
+            </div>
+            <p class="script-preview-modal-note">If you are stuck at loading, try to use newest android or ios delta executor or relaunch roblox if you are using it already</p>
+        </div>
+    </div>
+
+    <div id="pet-spawner-modal" class="modal-overlay">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>New Pet Spawner Script Visual and Serverside (with key)</h2>
+        <div class="image-gallery">
+          <div class="gallery-img-container">
+            <img src="https://hyperramzey.github.io/image2.jpg" alt="Script Preview 1" class="gallery-img">
+          </div>
+          <div class="gallery-img-container">
+            <img src="https://hyperramzey.github.io/image1.jpg" alt="Script Preview 2" class="gallery-img">
+          </div>
+        </div>
+        <p>This is the latest version of the pet spawner script with both visual and serverside capabilities. It includes a key system for enhanced security.</p>
+        <button class="btn copy-btn pet-spawner-modal-btn" type="button">💪 Copy Script</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js?v=PLACEHOLDER"></script>
+</body>
+</html>

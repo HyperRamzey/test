@@ -1,0 +1,19 @@
+{
+  "name": "xlam-hub",
+  "version": "1.0.0",
+  "description": "xlam HUB - Script repository with W3C compliance and TypeScript",
+  "main": "app.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "dev": "tsc && serve .",
+    "deploy": "npm run build && echo 'Build complete. Deploy to GitHub Pages.'"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "serve": "^14.0.0"
+  },
+  "keywords": ["scripts", "roblox", "adopt-me", "typescript"],
+  "author": "xlam",
+  "license": "MIT"
+} 
