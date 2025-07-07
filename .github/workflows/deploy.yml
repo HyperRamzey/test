@@ -51,6 +51,7 @@ jobs:
           cp -r *.html _site/
           cp -r *.css _site/
           cp -r *.js _site/
+          cp -r *.js.map _site/ 2>/dev/null || true
           cp -r *.json _site/
           cp -r images _site/ 2>/dev/null || true
           cp -r fonts _site/ 2>/dev/null || true

@@ -25,14 +25,12 @@ interface PerformanceMetrics {
 
 class ScriptHub {
   private scripts: ScriptData[] = [];
-  private currentScreen: string = 'bios';
   private searchBar!: HTMLInputElement;
   private scriptCards!: NodeListOf<Element>;
 
   constructor() {
     this.initializeScripts();
     this.setupEventListeners();
-    this.startScreenSequence();
   }
 
   private initializeScripts(): void {
@@ -80,6 +78,7 @@ class ScriptHub {
         tags: ['updated', 'working', 'premium', 'verified']
       }
     ];
+    window.addEventListener('resize', this.handleResize.bind(this));
   }
 
   private setupEventListeners(): void {
@@ -96,34 +95,6 @@ class ScriptHub {
 
     document.addEventListener('click', this.handleGlobalClick.bind(this));
     window.addEventListener('scroll', this.handleScroll.bind(this));
-    window.addEventListener('resize', this.handleResize.bind(this));
-  }
-
-  private startScreenSequence(): void {
-    setTimeout(() => {
-      this.showScreen('xp-login');
-    }, 4000);
-
-    setTimeout(() => {
-      this.showScreen('entry');
-    }, 8000);
-  }
-
-  private showScreen(screenName: string): void {
-    const screens = ['bios-screen', 'xp-login-screen', 'entry-screen', 'main-content'];
-    
-    screens.forEach(screen => {
-      const element = document.getElementById(screen);
-      if (element) {
-        element.style.display = screen.includes(screenName) ? 'flex' : 'none';
-      }
-    });
-
-    this.currentScreen = screenName;
-
-    if (screenName === 'main') {
-      this.initializeMainContent();
-    }
   }
 
   private initializeMainContent(): void {
@@ -399,10 +370,6 @@ class ScriptHub {
 
     if (target.id === 'back-to-top') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    if (target.closest('#entry-screen')) {
-      this.showScreen('main');
     }
   }
 
@@ -716,4 +683,142 @@ document.addEventListener('DOMContentLoaded', () => {
   usage: 'Add ?debug=true to URL to see performance metrics'
 };
 
-const app = new ScriptHub(); 
+const app = new ScriptHub();
+
+// BIOS Screen Animation
+function showBiosScreen() {
+    const biosScreen = document.getElementById('bios-screen');
+    if (!biosScreen) return;
+    const biosLines = [
+        'Award Modular BIOS v6.00PG, An Energy Star Ally',
+        'Copyright (C) 1984-2003, Award Software, Inc.',
+        '',
+        'ASUS P4P800 ACPI BIOS Revision 1019',
+        '',
+        'CPU : Intel(R) Pentium(R) 4 CPU 3.00GHz',
+        '       Speed : 3000 MHz',
+        '',
+        'Press DEL to enter SETUP',
+        '02/25/2025-i865P-ICH5-6A79AD4IC-00',
+        '',
+        'Detecting IDE drives...',
+        'IDE Primary Master  : WDC WD800JB-00JJC0     80.0GB',
+        'IDE Primary Slave   : None',
+        'IDE Secondary Master: HL-DT-ST DVDRAM GSA-4163B',
+        'IDE Secondary Slave : None',
+        '',
+        'Memory Test :   524288K  OK',
+        '',
+        'Loading Windows XP...'
+    ];
+    const biosText = biosScreen.querySelector('.bios-text');
+    const biosCursor = biosScreen.querySelector('.bios-cursor');
+    if (!biosText || !biosCursor) return;
+    let i = 0;
+    function nextLine() {
+        if (i < biosLines.length) {
+            biosText!.textContent += biosLines[i] + '\n';
+            i++;
+            setTimeout(nextLine, 180);
+        } else {
+            (biosCursor as HTMLElement).style.display = 'inline-block';
+            setTimeout(() => {
+                (biosScreen as HTMLElement).style.opacity = '0';
+                setTimeout(() => {
+                    (biosScreen as HTMLElement).style.display = 'none';
+                    showXpLogin();
+                }, 500);
+            }, 1200);
+        }
+    }
+    biosText.textContent = '';
+    (biosCursor as HTMLElement).style.display = 'none';
+    (biosScreen as HTMLElement).style.opacity = '1';
+    (biosScreen as HTMLElement).style.display = 'flex';
+    nextLine();
+}
+
+// XP Login Screen
+function showXpLogin() {
+    const xpScreen = document.getElementById('xp-login-screen');
+    if (!xpScreen) return;
+    xpScreen.style.display = 'flex';
+    xpScreen.style.opacity = '1';
+    const btn = xpScreen.querySelector('.xp-login-btn');
+    if (btn) {
+        (btn as HTMLElement).onclick = () => {
+            (xpScreen as HTMLElement).style.opacity = '0';
+            setTimeout(() => {
+                (xpScreen as HTMLElement).style.display = 'none';
+                showEntryScreen();
+            }, 500);
+        };
+    }
+}
+
+// Entry Animation Screen
+function showEntryScreen() {
+    const entryScreen = document.getElementById('entry-screen');
+    if (!entryScreen) return;
+    entryScreen.style.display = 'flex';
+    entryScreen.style.opacity = '1';
+    (entryScreen as HTMLElement).onclick = () => {
+        (entryScreen as HTMLElement).style.opacity = '0';
+        setTimeout(() => {
+            if(entryScreen)
+            (entryScreen as HTMLElement).style.display = 'none';
+            showMainContent();
+        }, 500);
+    };
+    document.addEventListener('keydown', (e) => {
+        if ((entryScreen as HTMLElement).style.display === 'flex') {
+            (entryScreen as HTMLElement).style.opacity = '0';
+            setTimeout(() => {
+                (entryScreen as HTMLElement).style.display = 'none';
+                showMainContent();
+            }, 500);
+        }
+    }, { once: true });
+}
+
+// Main Content
+function showMainContent() {
+    const mainContent = document.getElementById('main-content');
+    if (!mainContent) return;
+    mainContent.style.display = 'block';
+    applyDancingText();
+}
+
+// Dancing Text Effect
+function applyDancingText() {
+    const dancingElements = document.querySelectorAll('.dancing-text');
+    dancingElements.forEach(element => {
+        const text = element.textContent;
+        if (element && text) {
+            (element as HTMLElement).innerHTML = '';
+            for (let i = 0; i < text.length; i++) {
+                const span = document.createElement('span');
+                span.textContent = text[i];
+                const x1 = (Math.random() - 0.5) * 4;
+                const y1 = (Math.random() - 0.5) * 4;
+                const x2 = (Math.random() - 0.5) * 4;
+                const y2 = (Math.random() - 0.5) * 4;
+                const x3 = (Math.random() - 0.5) * 4;
+                const y3 = (Math.random() - 0.5) * 4;
+                span.style.setProperty('--dance-x-1', `${x1}px`);
+                span.style.setProperty('--dance-y-1', `${y1}px`);
+                span.style.setProperty('--dance-x-2', `${x2}px`);
+                span.style.setProperty('--dance-y-2', `${y2}px`);
+                span.style.setProperty('--dance-x-3', `${x3}px`);
+                span.style.setProperty('--dance-y-3', `${y3}px`);
+                span.style.animationDelay = `${Math.random() * 2}s`;
+                element.appendChild(span);
+            }
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    showBiosScreen();
+    applyDancingText();
+}); 
